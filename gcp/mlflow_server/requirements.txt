@@ -1,0 +1,4 @@
+mlflow
+psycopg2-binary    # PostgreSQL driver
+google-cloud-secret-manager  # For fetching secrets from Google Secret Manager
+google-cloud-storage  # For interacting with GCS
