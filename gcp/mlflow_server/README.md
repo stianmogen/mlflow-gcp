@@ -59,3 +59,50 @@ gcloud run deploy mlflow-server \
   --memory=1Gi \
   --port=8080
 ```
+
+### 6. Service Account Permission
+
+Depending on the service account you use, you may want to add additional permissions to read and write to the database, cloud storage and artifact registry.
+
+To allow the MLflow server access to necessary Google Cloud resources, grant the service account specific roles. 
+
+```bash
+# Artifact Registry Administrator
+gcloud projects add-iam-policy-binding PROJECT-ID \
+  --member='serviceAccount:SERVICE-ACCOUNT-NAME@PROJECT-ID.iam.gserviceaccount.com' \
+  --role='roles/artifactregistry.admin'
+
+# Cloud SQL Editor
+gcloud projects add-iam-policy-binding PROJECT-ID \
+  --member='serviceAccount:SERVICE-ACCOUNT-NAME@PROJECT-ID.iam.gserviceaccount.com' \
+  --role='roles/cloudsql.editor'
+
+# Storage Object Admin
+gcloud projects add-iam-policy-binding PROJECT-ID \
+  --member='serviceAccount:SERVICE-ACCOUNT-NAME@PROJECT-ID.iam.gserviceaccount.com' \
+  --role='roles/storage.objectAdmin'
+
+# Secret Manager Secret Accessor
+gcloud projects add-iam-policy-binding PROJECT-ID \
+  --member='serviceAccount:SERVICE-ACCOUNT-NAME@PROJECT-ID.iam.gserviceaccount.com' \
+  --role='roles/secretmanager.secretAccessor'
+
+# Cloud Functions Admin
+gcloud projects add-iam-policy-binding PROJECT-ID \
+  --member='serviceAccount:SERVICE-ACCOUNT-NAME@PROJECT-ID.iam.gserviceaccount.com' \
+  --role='roles/cloudfunctions.admin'
+
+# Cloud Deploy Service Agent
+gcloud projects add-iam-policy-binding PROJECT-ID \
+  --member='serviceAccount:SERVICE-ACCOUNT-NAME@PROJECT-ID.iam.gserviceaccount.com' \
+  --role='roles/clouddeploy.serviceAgent'
+
+# Container Analysis Occurrences Viewer
+gcloud projects add-iam-policy-binding PROJECT-ID \
+  --member='serviceAccount:SERVICE-ACCOUNT-NAME@PROJECT-ID.iam.gserviceaccount.com' \
+  --role='roles/containeranalysis.occurrences.viewer'
+
+# BigQuery Data Viewer
+gcloud projects add-iam-policy-binding PROJECT-ID \
+  --member='serviceAccount:SERVICE-ACCOUNT-NAME@PROJECT-ID.iam.gserviceaccount.com' \
+  --role='roles/bigquery.dataViewer'
