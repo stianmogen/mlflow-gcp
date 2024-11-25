@@ -106,3 +106,44 @@ gcloud projects add-iam-policy-binding PROJECT-ID \
 gcloud projects add-iam-policy-binding PROJECT-ID \
   --member='serviceAccount:SERVICE-ACCOUNT-NAME@PROJECT-ID.iam.gserviceaccount.com' \
   --role='roles/bigquery.dataViewer'
+```
+
+# Prediction pipeline
+
+1. ETL Function
+```
+gcloud functions deploy etl_function \
+  --runtime python312 \
+  --trigger-http \
+  --timeout 900s \
+  --memory 512MB \
+  --source=gcp/etl \
+  --region=europe-west1 \
+  --set-env-vars 
+```
+
+2. Pre Process Function
+
+```
+gcloud functions deploy pre_process_function \
+  --runtime python312 \
+  --trigger-http \
+  --timeout 120s \
+  --memory 1024MB \
+  --source=cloud_functions/pre_process \
+  --region=europe-west1 \
+  --set-env-vars 
+```
+
+3. Prediction Function
+
+```
+gcloud functions deploy predict_function \
+  --runtime python312 \
+  --trigger-http \
+  --timeout 120s \
+  --memory 1024MB \
+  --source=cloud_functions/predict \
+  --region=europe-west1 \
+  --set-env-vars 
+```
