@@ -1,4 +1,4 @@
-# MLflow Server Deployment on Google Cloud
+# MLflow Server and Prediction Pipeline Deployment on Google Cloud
 
 This guide covers deploying an MLflow server on Google Cloud Platform (GCP) using `gcloud` CLI commands.
 
@@ -109,6 +109,8 @@ gcloud projects add-iam-policy-binding PROJECT-ID \
 ```
 
 # Prediction pipeline
+
+This guide covers deploying the prediction pipeline on Google Cloud Platform (GCP) using `gcloud` CLI commands.
 
 1. ETL Function
 ```
