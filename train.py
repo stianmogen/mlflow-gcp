@@ -93,7 +93,15 @@ with mlflow.start_run() as run:
     model.fit(x_train, y_train, epochs=50, batch_size=32, validation_split=0.2)
 
     # Log the model
-    mlflow.keras.log_model(model, "lstm_model")
+    mlflow.keras.log_model(model, "lstm_model", signature=signature)
+
+    # Register model
+    try:
+        result = mlflow.register_model(
+            f"runs:/{run.info.run_id}/model", MODEL_REGISTRY_NAME)
+        print(f"Model registered successfully with version {result.version}.")
+    except mlflow.MlflowException as e:
+        print(f"Error registering model: {e}")
 
     # Make predictions
     predictions = model.predict(x_test)
